@@ -1,3 +1,7 @@
+var ERROR = {
+  MAP_NOT_A_FUNC = { error: 100, reason: "Your map function does not evaluate to a JS function." }
+};
+
 var mapFuncs = [];
 
 var couch = {
@@ -16,6 +20,8 @@ var couch = {
 process.stdin.setEncoding('utf-8');
 
 process.stdin.on('data', function(line) {
+  var evaled;
+
   if(!line || line === '\n') {
     return;
   }
@@ -41,15 +47,32 @@ process.stdin.on('data', function(line) {
 
   switch(line[0]) {
     case 'reset':
-      couch.log('Resetting!');
-      couch.sendLine(true);
+      //TODO actually implement
+      break;
+
+    case 'add_fun':
+      evaled = eval('(' + line[1] + ')');
+
+      if(typeof evaled === 'function') {
+        couch.log(mapFuncs.push(evaled));
+      }
+      else {
+        couch.log(ERROR.MAP_NOT_A_FUNC);
+
+        return;
+      }
+
       break;
 
     default:
       couch.log('Not implemented yet.');
       couch.sendLine(false);
+      return;
+      
       break;
   }
+
+  couch.sendLine(true);
 });
 
 process.stdin.resume();
