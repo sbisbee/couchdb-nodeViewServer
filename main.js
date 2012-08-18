@@ -1,5 +1,5 @@
 var ERROR = {
-  MAP_NOT_A_FUNC = { error: 100, reason: "Your map function does not evaluate to a JS function." }
+  MAP_NOT_A_FUNC: { error: 100, reason: "Your map function does not evaluate to a JS function." }
 };
 
 var mapFuncs = [];
