@@ -9,6 +9,10 @@ var sum = function(vals) {
   return result;
 }
 
+var strToFunc = function(s) {
+  return eval('(' + s + ')');
+};
+
 exports.reduce = function(funcs, data) {
   var results = [];
   var keys = [];
@@ -22,8 +26,12 @@ exports.reduce = function(funcs, data) {
   }
 
   for(i in funcs) {
-    results.push(eval('(' + funcs[i] + ')')(keys, values, false));
+    results.push(strToFunc(funcs[i])(keys, values, false));
   }
 
   return results;
+};
+
+exports.rereduce = function(func, data) {
+  return [ strToFunc(func)(null, data, true) ];
 };

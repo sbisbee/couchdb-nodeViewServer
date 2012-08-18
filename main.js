@@ -80,6 +80,10 @@ process.stdin.on('data', function(line) {
 
       break;
 
+    case 'rereduce':
+      couch.sendLine([ true, reduce.rereduce(line[1], line[2]) ]);
+      return;
+
     default:
       couch.log('Not implemented yet.');
       couch.sendLine(false);
