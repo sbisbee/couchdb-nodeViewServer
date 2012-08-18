@@ -1,8 +1,9 @@
+var vm = require('vm');
+var map = require('./map.js');
+
 var ERROR = {
   MAP_NOT_A_FUNC: { error: 100, reason: "Your map function does not evaluate to a JS function." }
 };
-
-var mapFuncs = [];
 
 var couch = {
   sendLine: function(data) {
@@ -17,6 +18,10 @@ var couch = {
   }
 };
 
+process.on('uncaughtException', function(err) {
+  couch.log('Uncaught Exception: %s', err);
+});
+
 process.stdin.setEncoding('utf-8');
 
 process.stdin.on('data', function(line) {
@@ -25,8 +30,6 @@ process.stdin.on('data', function(line) {
   if(!line || line === '\n') {
     return;
   }
-
-  couch.log('got: ' + line);
 
   try {
     line = JSON.parse(line);
@@ -51,16 +54,20 @@ process.stdin.on('data', function(line) {
       break;
 
     case 'add_fun':
-      evaled = eval('(' + line[1] + ')');
-
-      if(typeof evaled === 'function') {
-        couch.log(mapFuncs.push(evaled));
+      try {
+        map.addFunction(line[1]);
       }
-      else {
-        couch.log(ERROR.MAP_NOT_A_FUNC);
-
+      catch(e) {
+        couch.log(e);
+        couch.sendLine(ERROR.MAP_NOT_A_FUNC);
         return;
       }
+
+      break;
+
+    case 'map_doc':
+      couch.sendLine(map.runDoc(line[1]));
+      return;
 
       break;
 
@@ -76,3 +83,5 @@ process.stdin.on('data', function(line) {
 });
 
 process.stdin.resume();
+
+couch.log('Alive!');
