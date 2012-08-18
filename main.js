@@ -1,5 +1,7 @@
 var vm = require('vm');
+
 var map = require('./map.js');
+var reduce = require('./reduce');
 
 var ERROR = {
   MAP_NOT_A_FUNC: { error: 100, reason: "Your map function does not evaluate to a JS function." }
@@ -68,6 +70,12 @@ process.stdin.on('data', function(line) {
 
     case 'map_doc':
       couch.sendLine(map.runDoc(line[1]));
+      return;
+
+      break;
+
+    case 'reduce':
+      couch.sendLine([ true, reduce.reduce(line[1], line[2]) ]);
       return;
 
       break;
