@@ -50,7 +50,8 @@ process.stdin.on('data', function(line) {
 
   switch(line[0]) {
     case 'reset':
-      //TODO actually implement
+      map.reset();
+
       break;
 
     case 'add_fun':
