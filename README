@@ -1,0 +1,10 @@
+couchdb-nodeViewServer
+======================
+
+This is not production ready and isn't too developer friendly yet (no docs or
+real unit tests). That will change if people show interest or I find a short
+term use for it.
+
+Run: `node ./main.js`
+
+test.js has some test code that needs to be turned into nodeunit tests.
