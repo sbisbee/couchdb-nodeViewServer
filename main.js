@@ -1,7 +1,7 @@
 var vm = require('vm');
 
-var map = require('./map.js');
-var reduce = require('./reduce');
+var map = require('./src/map.js');
+var reduce = require('./src/reduce');
 
 var ERROR = {
   MAP_NOT_A_FUNC: { error: 100, reason: "Your map function does not evaluate to a JS function." }
