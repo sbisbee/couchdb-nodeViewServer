@@ -1,5 +1,3 @@
-var vm = require('vm');
-
 var map = require('./src/map.js');
 var reduce = require('./src/reduce');
 
