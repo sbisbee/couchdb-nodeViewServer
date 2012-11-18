@@ -1,0 +1,10 @@
+{
+  "name": "couchdb-nodeViewServer",
+  "version": "0.0.1",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "nodeunit": ">0.0.0"
+  },
+  "engine": "node 0.8.x"
+}
