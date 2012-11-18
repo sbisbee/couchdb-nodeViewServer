@@ -70,13 +70,9 @@ process.stdin.on('data', function(line) {
       couch.sendLine(map.runDoc(line[1]));
       return;
 
-      break;
-
     case 'reduce':
       couch.sendLine([ true, reduce.reduce(line[1], line[2]) ]);
       return;
-
-      break;
 
     case 'rereduce':
       couch.sendLine([ true, reduce.rereduce(line[1], line[2]) ]);
@@ -86,8 +82,6 @@ process.stdin.on('data', function(line) {
       couch.log('Not implemented yet.');
       couch.sendLine(false);
       return;
-      
-      break;
   }
 
   couch.sendLine(true);

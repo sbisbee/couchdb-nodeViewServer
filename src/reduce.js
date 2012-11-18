@@ -3,11 +3,13 @@ var sum = function(vals) {
   var i;
 
   for(i in vals) {
-    result += vals[i];
+    if(vals.hasOwnProperty(i)) {
+      result += vals[i];
+    }
   }
 
   return result;
-}
+};
 
 var strToFunc = function(s) {
   return eval('(' + s + ')');
@@ -21,12 +23,16 @@ exports.reduce = function(funcs, data) {
   var i;
 
   for(i in data) {
-    keys.push(data[i][0][0]);
-    values.push(data[i][1]);
+    if(data.hasOwnProperty(i)) {
+      keys.push(data[i][0][0]);
+      values.push(data[i][1]);
+    }
   }
 
   for(i in funcs) {
-    results.push(strToFunc(funcs[i])(keys, values, false));
+    if(funcs.hasOwnProperty(i)) {
+      results.push(strToFunc(funcs[i])(keys, values, false));
+    }
   }
 
   return results;

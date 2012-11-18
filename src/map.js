@@ -9,7 +9,7 @@ var context = {
 var funcs = [];
 
 exports.addFunction = function(func) {
-  funcs.push(vm.createScript('(' + func + ')(currDoc)'));
+  return funcs.push(vm.createScript('(' + func + ')(currDoc)'));
 };
 
 exports.runDoc = function(doc) {
@@ -18,12 +18,14 @@ exports.runDoc = function(doc) {
   var i;
 
   for(i in funcs) {
-    global.mapResults = [];
-    context.currDoc = docCopy;
+    if(funcs.hasOwnProperty(i)) {
+      global.mapResults = [];
+      context.currDoc = docCopy;
 
-    funcs[i].runInNewContext(context);
+      funcs[i].runInNewContext(context);
 
-    results.push(global.mapResults);
+      results.push(global.mapResults);
+    }
   }
 
   global.mapResults = null;
