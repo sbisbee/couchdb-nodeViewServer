@@ -111,5 +111,15 @@ exports.map = {
     }
 
     test.done();
+  },
+
+  log: function(test) {
+    map.addFunction('function(d) { log(d); }');
+
+    test.doesNotThrow(function() {
+      map.runDoc({ a: 1 });
+
+      test.done();
+    });
   }
 };

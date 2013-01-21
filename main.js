@@ -1,21 +1,9 @@
 var map = require('./src/map.js');
-var reduce = require('./src/reduce');
+var reduce = require('./src/reduce.js');
+var couch = require('./src/couch.js');
 
 var ERROR = {
   MAP_NOT_A_FUNC: { error: 100, reason: "Your map function does not evaluate to a JS function." }
-};
-
-var couch = {
-  sendLine: function(data) {
-    if(typeof data !== 'string') {
-      data = JSON.stringify(data);
-    }
-
-    process.stdout.write(data + '\n');
-  },
-  log: function(line) {
-    couch.sendLine([ 'log', line ]);
-  }
 };
 
 process.on('uncaughtException', function(err) {

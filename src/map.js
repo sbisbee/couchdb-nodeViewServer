@@ -1,9 +1,12 @@
 var vm = require('vm');
+var couch = require('./couch.js');
 
 var context = {
   emit: function(k, v) {
     global.mapResults.push([ k, v ]);
-  }
+  },
+
+  log: couch.log
 };
 
 var funcs = [];
