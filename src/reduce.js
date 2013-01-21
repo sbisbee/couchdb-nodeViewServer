@@ -38,6 +38,15 @@ exports.reduce = function(funcs, data) {
   return results;
 };
 
-exports.rereduce = function(func, data) {
-  return [ strToFunc(func)(null, data, true) ];
+exports.rereduce = function(funcs, data) {
+  var results = [];
+  var i;
+
+  for(i in funcs) {
+    if(funcs.hasOwnProperty(i)) {
+      results.push(strToFunc(funcs[i])(null, data, true));
+    }
+  }
+
+  return results;
 };
